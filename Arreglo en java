@@ -1,0 +1,97 @@
+import javax.swing.JOptionPane;
+
+public class Arreglos {
+
+    public static void main(String[] args) {
+        int[][] ventas = new int[12][3]; 
+
+        while (true) {
+            String opcion = JOptionPane.showInputDialog(null,
+                    "Menú:\n" +
+                            "1 Insertar venta\n" +
+                            "2 Buscar venta\n" +
+                            "3 Eliminar venta\n" +
+                            "4 Mostrar ventas\n" +
+                            "5 Salir",
+                    "Ventas de los departamentos",
+                    JOptionPane.PLAIN_MESSAGE);
+
+            if (opcion == null) { 
+                break;
+            }
+
+            try {
+                int opcionInt = Integer.parseInt(opcion);
+
+                switch (opcionInt) {
+                    case 1:
+                        insertarVenta(ventas);
+                        break;
+                    case 2:
+                        buscarVenta(ventas);
+                        break;
+                    case 3:
+                        eliminarVenta(ventas);
+                        break;
+                    case 4:
+                        mostrarVentas(ventas);
+                        break;
+                    case 5:
+                        return; 
+                    default:
+                        JOptionPane.showMessageDialog(null, "Opción inválida.",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Debe ingresar un número entero.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    public static void insertarVenta(int[][] ventas) {
+        try {
+            int mes = Integer.parseInt(JOptionPane.showInputDialog(null, "mes del 0 al 11:"));
+            int departamento = Integer.parseInt(JOptionPane.showInputDialog(null, "Departamento 0=Ropa, 1=Jugueteria, 2=Deportes:"));
+            int cant = Integer.parseInt(JOptionPane.showInputDialog(null, "Cantidad:"));
+            ventas[mes][departamento] += cant;
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "ingresar numeros enteros.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public static void buscarVenta(int[][] ventas) {
+        try {
+            int mes = Integer.parseInt(JOptionPane.showInputDialog(null, "mes del 0 al 11:"));
+            int departamento = Integer.parseInt(JOptionPane.showInputDialog(null, "Departamento 0=Ropa, 1=Jugueteria, 2=Deportes::"));
+            JOptionPane.showMessageDialog(null, "Venta: " + ventas[mes][departamento]);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "ingresar numeros enteros.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public static void eliminarVenta(int[][] ventas) {
+        try {
+            int mes = Integer.parseInt(JOptionPane.showInputDialog(null, "mes del 0 al 11:"));
+            int departamento = Integer.parseInt(JOptionPane.showInputDialog(null, "Departamento 0=Ropa, 1=Jugueteria, 2=Deportes:"));
+            int cant = Integer.parseInt(JOptionPane.showInputDialog(null, "Cantidad para eliminar:"));
+            ventas[mes][departamento] -= cant;
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "ingresar numeros enteros.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+  public static void mostrarVentas(int[][] ventas) {
+    String tabla = "Tabla de ventas:"; 
+    for (int i = 0; i < ventas.length; i++) {
+        tabla += "mes " + i + ": ";
+        for (int j = 0; j < ventas[0].length; j++) {
+            tabla += ventas[i][j] + " ";
+        }
+        tabla += "\n";
+    }
+    JOptionPane.showMessageDialog(null, tabla);
+}
