@@ -1,5 +1,7 @@
 # Estructura_de_datos
 Repositorio de la materia estructura de datos 
+
+
 Codigo Arreglo: 
 Este programa permite gestionar las ventas al mes de 3 departamentos como lo son Ropa, Jugueteria, Deportes en donde el usuario puede insertar, buscar, eliminar o mostrar las ventas gracias a un menu 
 Metodos: 
