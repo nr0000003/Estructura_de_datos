@@ -1,7 +1,12 @@
 Conclusiones despues de ejecutar el programa
+
 Despues de ejecutar el programa con varios datos de alumnos y materias 500,1000,10000,100000 alumnos y 6,100,500,1000 materias llego a lo siguiente 
+
 luego de ejecutarlo con 500 alumnos y 6 materias buscando el alumno 321 y la materia 5 el codigo funciono bien y no tuvo fallas 
+
 Luego al ejecutarlo con 1000 alumnos y 100 materias siguio funcionando bien 
+
 El problema surgió cuando se ingresaron 10000 y 500 materias la tabla al haber tantos números y datos terminó por desordenarse aunque la tabla con todo y muchos alumnos y materias si se genero 
+
 Al ingresar 100000 y 1000 materias no se pudo generar la tabla y el programa se terminó congelando desconocemos el motivo por el cual pasó esto 
 
