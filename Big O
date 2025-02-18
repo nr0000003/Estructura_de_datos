@@ -1,0 +1,51 @@
+Codigo
+import time
+import random
+# Generamos una lista aleatoria de tamaño n
+n = 1000
+lista = sorted([random.randint(1, 10000) for _ in range(n)])  # Ordenada para búsqueda binaria
+objetivo = lista[random.randint(0, n-1)]  # Elemento a buscar
+# Algoritmo de búsqueda lineal O(n)
+def busqueda_lineal(lista, objetivo):
+    for i, elemento in enumerate(lista):
+        if elemento == objetivo:
+            return i
+    return -1
+ 
+# Algoritmo de búsqueda binaria O(log n)
+def busqueda_binaria(lista, objetivo):
+    inicio, fin = 0, len(lista) - 1
+    while inicio <= fin:
+        medio = (inicio + fin) // 2
+        if lista[medio] == objetivo:
+            return medio
+       elif lista[medio] < objetivo:
+            inicio = medio + 1
+        else:
+            fin = medio - 1
+    return -1
+ 
+# Algoritmo de ordenamiento burbuja O(n^2)
+def ordenamiento_burbuja(lista):
+    n = len(lista)
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if lista[j] > lista[j + 1]:
+                lista[j], lista[j + 1] = lista[j + 1], lista[j]
+ 
+# Medimos los tiempos de ejecución
+inicio = time.time()
+busqueda_lineal(lista, objetivo)
+print("Búsqueda Lineal:", time.time() - inicio, "segundos")
+inicio = time.time()
+busqueda_binaria(lista, objetivo)
+print("Búsqueda Binaria:", time.time() - inicio, "segundos")
+ 
+# Creamos una copia de la lista desordenada para la prueba de ordenamiento
+lista_desordenada = lista[:]
+random.shuffle(lista_desordenada)
+inicio = time.time()
+ordenamiento_burbuja(lista_desordenada)
+print("Ordenamiento Burbuja:", time.time() - inicio, "segundos")
+
+ 
