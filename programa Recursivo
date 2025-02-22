@@ -1,0 +1,34 @@
+#Ventajas del recursivo 
+# mas facil de hacer y entender, util en problemas poco complejos y que recquieran menos memoria 
+# Desventajas 
+# mas uso de memoria y menor alcanse de numeros no llegando al 1000 y mas lenta 
+# Tiempo de ejcucion: lineal hace n llamadas recursivas
+# complejidad Big O: lineal se hacen n llamadas 
+import time
+
+def factorialrec(n):
+    if n == 0 or n == 1:
+        return 1
+    return n * factorialrec(n - 1)
+
+def solucionrec():
+    while True:
+        try:
+            num = input("Ingresa un número para calcular su factorial (escribe salir para salir): ")
+            if num == "salir":
+                print("")
+                break
+            num = int(num)
+            if num < 0:
+                print("Por favor, ingresa un numero entero no negativo.")
+            else:
+                inicio = time.time()
+                resultado = factorialrec(num)
+                fin = time.time()
+                print(f"El factorial de {num} es: {resultado}")
+                print(f"Tiempo de ejecucion recursivo: {fin - inicio:.6f}")
+        except ValueError:
+            print("ingresa un numero entero")
+
+if __name__ == "__main__":
+    solucionrec()
