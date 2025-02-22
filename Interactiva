@@ -1,0 +1,34 @@
+#Ventajas 
+# mas rapida la ejcucion, la ejecucion utiliza menos memoria y mayor alcanze de numeros mayor a 1000
+# Tiempo de ejecucion: muy rapido para los valores grandes tardando caso nada en ejecutar el factorial de 1000
+# complejidad Big O: Constante usa unas pocas variables adicionales 
+import time
+
+def factorialiter(n):
+    resultado = 1
+    for i in range(2, n + 1):
+        resultado *= i
+    return resultado
+
+def interactivo():
+   while True:
+        try:
+            num = input("Ingresa un numero para calcular su factorial (escribe salir para salir):")
+            if num == "salir":
+                print("")
+                break
+            num = int(num)
+            if num < 0:
+                print("ingresa un numero entero no negativo.")
+            else:
+                inicio = time.time()
+                resultado = factorialiter(num)
+                fin = time.time()
+                print(f"El factorial de {num} es: {resultado}")
+                print(f"Tiempo de ejecucion: {fin - inicio:.6f}")
+        except ValueError:
+            print("ingresa un numero entero.")
+
+if __name__ == "__main__":
+    interactivo()
+
