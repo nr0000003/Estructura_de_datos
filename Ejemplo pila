@@ -1,0 +1,24 @@
+class pila:
+    def __init__(self):
+        self.pila = []
+
+    def apilar(self, elem):
+        self.pila.append(elem)
+        print(f"se agrego: {elem}")
+
+    def desapilar(self):
+        if self.pila:
+            print(f"se elimino: {self.pila.pop()}")
+        else:
+            print("La pila está vacia.")
+
+    def mostrar(self):
+        print("pila:", self.pila if self.pila else "vacia")
+
+mi_pila = pila()
+
+mi_pila.apilar("hola")
+mi_pila.apilar("adios")
+mi_pila.mostrar()
+mi_pila.desapilar()
+mi_pila.mostrar()
