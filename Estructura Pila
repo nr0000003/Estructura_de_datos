@@ -1,0 +1,40 @@
+class Pila:
+    def __init__(self, capacidad):
+        self.capacidad = capacidad
+        self.items = []
+        self.tope = 0
+
+    def insertar(self, elemento):
+        if self.tope < self.capacidad:  
+            self.items.append(elemento)
+            self.tope += 1
+            self.mostrar_estado()
+        else:
+            print('Error: La pila está llena.')
+
+    def eliminar(self):
+        if self.tope > 0:  
+            eliminado = self.items.pop()
+            self.tope -= 1
+            self.mostrar_estado()
+            return eliminado
+        else:
+            print('Error: La pila está vacía.')
+
+    def mostrar_estado(self):
+        print(f'Pila: {self.items}')
+        print(f'TOPE = {self.tope}')
+
+pila = Pila(8)  
+
+pila.insertar('X')
+pila.insertar('Y')
+pila.eliminar()  
+pila.eliminar()  
+pila.eliminar()  
+pila.insertar('V')
+pila.insertar('W')
+pila.eliminar()  
+pila.insertar('R')
+
+print(f'La pila tiene {pila.tope} elementos.')
