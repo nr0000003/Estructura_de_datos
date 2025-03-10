@@ -1,0 +1,58 @@
+class Pila:
+    def __init__(self):
+        self.pila = []
+    def apilar(self, elemento):
+        self.pila.append(elemento) 
+    def desapilar(self):
+        if not self.vacia():
+            return self.pila.pop()
+        else:
+            raise Exception("La pila está vacía")
+
+    def vacia(self):
+        return len(self.pila) == 0
+
+def evaposfija(expresion):
+    pila = Pila()
+    operadores = {'+', '-', '*', '/'}
+    for elemento in expresion.split():
+        if elemento not in operadores:
+            pila.apilar(int(elemento))
+        else:
+            b = pila.desapilar()
+            a = pila.desapilar()
+            if elemento == '+':
+                pila.apilar(a + b)
+            elif elemento == '-':
+                pila.apilar(a - b)
+            elif elemento == '*':
+                pila.apilar(a * b)
+            elif elemento == '/':
+                pila.apilar(a / b)
+    return pila.desapilar()
+
+def evaprefija(expresion):
+    pila = Pila()
+    operadores = {'+', '-', '*', '/'}
+    for elemento in reversed(expresion.split()):
+        if elemento not in operadores:
+            pila.apilar(int(elemento))
+        else:
+            a = pila.desapilar()
+            b = pila.desapilar()
+            if elemento == '+':
+                pila.apilar(a + b)
+            elif elemento == '-':
+                pila.apilar(a - b)
+            elif elemento == '*':
+                pila.apilar(a * b)
+            elif elemento == '/':
+                pila.apilar(a / b)
+    return pila.desapilar()
+
+
+expresion_posfija = "10 2 + 3 * 7 /"  
+expresion_prefija = "- * + 10 2 3 7"  
+
+print("Resultado de expresión posfija:", evaposfija(expresion_posfija))
+print("Resultado de expresión prefija:", evaprefija(expresion_prefija))
