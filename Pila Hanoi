@@ -1,0 +1,47 @@
+class Pila:
+    def __init__(self):
+        self.items = []
+    def apilar(self, item):
+        self.items.append(item)
+    
+    def desapilar(self):
+        return self.items.pop() if not self.vacia() else None
+    def vercima(self):
+        return self.items[-1] if not self.vacia() else None
+    def vacia(self):
+        return len(self.items) == 0
+    
+    def __str__(self):
+        return str(self.items)
+
+def moverdiscos(n, origen, destino, auxiliar):
+    if n == 1:
+        disco = origen.desapilar()
+        destino.apilar(disco)
+        print(f"Mover disco {disco} de {origen.nombre} a {destino.nombre}")
+        mostrartorres()
+    else:
+        moverdiscos(n-1, origen, auxiliar, destino)
+        moverdiscos(1, origen, destino, auxiliar)
+        moverdiscos(n-1, auxiliar, destino, origen)
+
+def mostrartorres():
+    print(f"A: {torre_a}")
+    print(f"B: {torre_b}")
+    print(f"C: {torre_c}")
+
+num_discos = 3
+torre_a = Pila()
+torre_b = Pila()
+torre_c = Pila()
+
+torre_a.nombre = "A"
+torre_b.nombre = "B"
+torre_c.nombre = "C"
+
+for disco in range(num_discos, 0, -1):
+    torre_a.apilar(disco)
+print("Inicio:")
+mostrartorres()
+moverdiscos(num_discos, torre_a, torre_c, torre_b)
+print("completado")
