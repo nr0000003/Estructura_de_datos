@@ -1,0 +1,69 @@
+class Order:
+    def __init__(self, qtty, customer):
+        self.customer = customer
+        self.qtty = qtty           
+
+    def print(self):
+        print(f"     Cliente: {self.customer}")
+        print(f"     Cantidad: {self.qtty}")
+        print("    ")
+
+class Nodo:
+    def __init__(self, pedido):
+        self.pedido = pedido      
+        self.siguiente = None        
+
+class ColaEnlazada:
+    def __init__(self):
+        self.frente = None  
+        self.final = None    
+
+    def encolar(self, qtty, customer):
+        nuevo_pedido = Order(qtty, customer)
+        nuevo_nodo = Nodo(nuevo_pedido)
+        
+        if self.esta_vacia():  
+            self.frente = nuevo_nodo
+            self.final = nuevo_nodo
+        else:  
+            self.final.siguiente = nuevo_nodo
+            self.final = nuevo_nodo
+
+    def desencolar(self):
+        if self.esta_vacia():
+            print("La cola está vacía. No se puede desencolar.")
+            return None
+        
+        nodo_eliminado = self.frente  
+        self.frente = self.frente.siguiente  
+        
+        if self.frente is None:  
+            self.final = None
+        
+        print(f"\nPedido de {nodo_eliminado.pedido.customer} eliminado correctamente.")
+        return nodo_eliminado.pedido
+
+    def imprimir(self):
+        actual = self.frente
+        if self.esta_vacia():
+            print("La cola está vacía.")
+            return
+        
+        while actual:
+            actual.pedido.print()
+            actual = actual.siguiente
+
+    def esta_vacia(self):
+        return self.frente is None
+
+cola = ColaEnlazada()
+cola.encolar(10, "Juan Pérez")
+cola.encolar(5, "Ana Gómez")
+cola.encolar(12, "Luis Torres")
+
+print("Pedidos en la cola:")
+cola.imprimir()
+cola.desencolar()
+
+print("\nPedidos después de eliminar uno:")
+cola.imprimir()
