@@ -1,0 +1,124 @@
+class Nodo:
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.siguiente = None
+
+class Postre:
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.ingredientes = None
+
+class POSTRES:
+    def __init__(self):
+        self.postres = {}
+
+    def agregar_postre(self, nombre):
+        if nombre in self.postres:
+            print(f'El postre {nombre} ya existe.')
+        else:
+            self.postres[nombre] = Postre(nombre)
+          
+    def eliminar_postre(self, nombre):
+        if nombre in self.postres:
+            del self.postres[nombre]
+            print(f'Se eliminó el postre: {nombre}.')
+        else:
+            print(f'El postre {nombre} no existe.')
+
+    def agregar_ingrediente(self, postre, ingrediente):
+        if postre not in self.postres:
+            print(f'El postre {postre} no existe.')
+            return
+
+        nuevo = Nodo(ingrediente)
+        if not self.postres[postre].ingredientes:  
+            self.postres[postre].ingredientes = nuevo
+        else:  
+            actual = self.postres[postre].ingredientes
+            while actual.siguiente:
+                actual = actual.siguiente
+            actual.siguiente = nuevo
+    
+    def mostrar_ingredientes(self, postre):
+        if postre not in self.postres:
+            print(f'El postre {postre} no existe.')
+            return
+
+        actual = self.postres[postre].ingredientes
+        if not actual:
+            print(f'El postre {postre} no tiene ingredientes.')
+            return
+
+        print(f'Ingredientes de {postre}:')
+        while actual:
+            print(f' {actual.nombre}')
+            actual = actual.siguiente
+
+    def eliminar_ingrediente(self, postre, ingrediente):
+        if postre not in self.postres:
+            print(f'El postre {postre} no existe.')
+            return
+
+        actual = self.postres[postre].ingredientes
+        anterior = None
+        while actual:
+            if actual.nombre == ingrediente:
+                if anterior:  
+                    anterior.siguiente = actual.siguiente
+                else:  
+                    self.postres[postre].ingredientes = actual.siguiente
+                print(f'Se eliminó el ingrediente {ingrediente} del postre {postre}.')
+                return
+            anterior = actual
+            actual = actual.siguiente
+
+        print(f'El ingrediente {ingrediente} no se encontró en {postre}.')
+
+    def eliminar_duplicados(self):
+        for postre in self.postres.keys():
+            actual = self.postres[postre].ingredientes
+            vistos = set()
+            anterior = None
+
+            while actual:
+                if actual.nombre in vistos:  
+                    anterior.siguiente = actual.siguiente
+                else:
+                    vistos.add(actual.nombre)
+                    anterior = actual
+                actual = actual.siguiente
+
+            print(f'Duplicados eliminados del postre {postre}.')
+            self.mostrar_ingredientes(postre)
+postres = POSTRES()
+
+postres.agregar_postre('Pastel')
+postres.agregar_postre('Helado')
+postres.agregar_postre('Pastelde chocolate')
+
+postres.agregar_ingrediente('Pastel', 'Harina')
+postres.agregar_ingrediente('Pastel', 'Huevos')
+postres.agregar_ingrediente('Pastel', 'Azucar')
+postres.agregar_ingrediente('Pastel', 'Azucar') 
+
+postres.agregar_ingrediente('Helado', 'Leche')
+postres.agregar_ingrediente('Helado', 'Vainilla')
+postres.agregar_ingrediente('Helado', 'Azucar')
+
+postres.agregar_ingrediente('Pastelde chocolate', 'Harina')
+postres.agregar_ingrediente('Pastelde chocolate', 'Huevos')
+postres.agregar_ingrediente('Pastelde chocolate', 'Azucar')
+postres.agregar_ingrediente('Pastelde chocolate', 'Chocolate')
+
+postres.mostrar_ingredientes('Pastel')
+postres.mostrar_ingredientes('Helado')
+postres.mostrar_ingredientes('Pastelde chocolate')
+
+postres.eliminar_ingrediente('Pastel', 'Huevos')
+postres.mostrar_ingredientes('Pastel')
+
+print("Eliminando duplicados de todos los postres:")
+postres.eliminar_duplicados()
+
+postres.eliminar_postre('Pastel')
+postres.mostrar_ingredientes('Pastel') 
