@@ -1,0 +1,17 @@
+from my_linked_list import MyLinkedList
+
+my_list = MyLinkedList()
+
+my_list.append(20)
+my_list.append(30)
+
+print("Lista después de agregar elementos:")
+my_list.mostrar()
+
+print("Buscando elementos en la lista:")
+print("¿Está 20 en la lista?", my_list.find(20))  
+print("¿Está 40 en la lista?", my_list.find(40))  
+
+my_list.eliminar(20)
+print("\nLista después de eliminar el 20:")
+my_list.mostrar()
