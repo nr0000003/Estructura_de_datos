@@ -1,0 +1,61 @@
+from collections import deque
+
+class Nodo:
+    def __init__(self, valor):
+        self.valor = valor
+        self.izq = None
+        self.der = None
+
+class Arbol:
+    def __init__(self):
+        self.raiz = None
+
+    def insertar(self, valor):
+        if self.raiz is None:
+            self.raiz = Nodo(valor)
+        else:
+            self.insertarrec(self.raiz, valor)
+
+    def insertarrec(self, nodo, valor):
+        if valor < nodo.valor:
+            if nodo.izq is None:
+                nodo.izq = Nodo(valor)
+            else:
+                self.insertarrec(nodo.izq, valor)
+        else:
+            if nodo.der is None:
+                nodo.der = Nodo(valor)
+            else:
+                self.insertarrec(nodo.der, valor)
+
+    def mostrar_arbol_niveles(self):
+        if not self.raiz:
+            print("El árbol está vacío.")
+            return
+        
+        cola = deque([(self.raiz, 0)]) 
+        niveles = {}
+
+        while cola:
+            nodo, nivel = cola.popleft()
+
+            if nivel not in niveles:
+                niveles[nivel] = []
+            niveles[nivel].append(str(nodo.valor))
+
+            if nodo.izq:
+                cola.append((nodo.izq, nivel + 1))
+            if nodo.der:
+                cola.append((nodo.der, nivel + 1))
+
+        for nivel in niveles:
+            print("Nivel", nivel, "", "  ".join(niveles[nivel]))
+
+arbol = Arbol()
+valores = [160,80, 50, 30, 70, 20, 40, 60, 80]
+for v in valores:
+    arbol.insertar(v)
+
+
+print("Arbol por niveles (de arriba hacia abajo):")
+arbol.mostrar_arbol_niveles()
