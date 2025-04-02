@@ -1,0 +1,57 @@
+import networkx as nx
+import matplotlib.pyplot as plt
+from itertools import permutations
+
+def crear_grafo():
+    edges = [
+        ("Jalisco", "Nayarit", 120), ("Jalisco", "Michoacán", 180),
+        ("Jalisco", "Guanajuato", 160), ("Nayarit", "Zacatecas", 200),
+        ("Zacatecas", "San Luis Potosí", 250), ("San Luis Potosí", "Guanajuato", 190),
+        ("San Luis Potosí", "Querétaro", 210), ("Michoacán", "Querétaro", 170),
+        ("Guanajuato", "Querétaro", 140)
+    ]
+    graph = nx.Graph()
+    graph.add_weighted_edges_from(edges)
+    return graph
+
+def dibujar_grafo(graph):
+    pos = nx.spring_layout(graph)
+    nx.draw(graph, pos, with_labels=True, node_color='lightblue', node_size=3000, font_size=10)
+    labels = {(u, v): f"{d}" for u, v, d in graph.edges(data="weight")}
+    nx.draw_networkx_edge_labels(graph, pos, edge_labels=labels)
+    plt.title("Mapa de conexiones entre estados")
+    plt.show()
+
+def camino_minimo(graph):
+    estados = list(graph.nodes)
+    min_cost = float('inf')
+    best_path = None
+    
+    for perm in permutations(estados):
+        cost = 0
+        valid_path = True
+        
+        for i in range(len(perm) - 1):
+            if graph.has_edge(perm[i], perm[i+1]):  
+                cost += graph[perm[i]][perm[i+1]]['weight']
+            else:
+                valid_path = False
+                break  
+        
+        if valid_path and cost < min_cost:
+            min_cost = cost
+            best_path = perm
+    
+    return best_path, min_cost if best_path else (None, float('inf'))
+graph = crear_grafo()
+dibujar_grafo(graph)
+
+path_a, cost_a = camino_minimo(graph)
+print(f"\nRecorrido sin repetir estados:\n{' -> '.join(path_a)}\nCosto total: {cost_a}")
+
+if nx.is_eulerian(graph):
+    path_b = list(nx.eulerian_circuit(graph))
+    cost_b = sum(graph[u][v]['weight'] for u, v in path_b)
+    print(f"\nRecorrido repitiendo al menos un estado:\n{' -> '.join([u for u, v in path_b] + [path_b[-1][1]])}\nCosto total: {cost_b}")
+else:
+    print("\nNo es posible encontrar un camino euleriano en este grafo.")
