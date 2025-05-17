@@ -1,0 +1,16 @@
+def busqueda_secuencial(lista, objetivo):
+  
+    for i in range(len(lista)):
+        if lista[i] == objetivo:
+            return i
+    return -1
+
+
+nombres = ["Ana", "Carlos", "Diana", "Saul", "Beatriz"]
+nombre_buscar = "Saul"
+
+indice = busqueda_secuencial(nombres, nombre_buscar)
+if indice != -1:
+    print(f"'{nombre_buscar}' encontrado en la posición {indice}")
+else:
+    print(f"'{nombre_buscar}' no está en la lista")
