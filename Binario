@@ -1,0 +1,25 @@
+def busqueda_binaria(lista, objetivo):
+    izquierda = 0
+    derecha = len(lista) - 1
+    
+    while izquierda <= derecha:
+        medio = (izquierda + derecha) // 2
+        valor_medio = lista[medio]
+        
+        if valor_medio == objetivo:
+            return medio
+        elif valor_medio < objetivo:
+            izquierda = medio + 1
+        else:
+            derecha = medio - 1
+            
+    return -1
+
+numeros = [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]
+numero_buscar = 23
+
+indice = busqueda_binaria(numeros, numero_buscar)
+if indice != -1:
+    print(f"'{numero_buscar}' encontrado en la posición {indice}")
+else:
+    print(f"'{numero_buscar}' no está en la lista")
