@@ -1,0 +1,15 @@
+empleados = {
+    101: "Ana Pérez",
+    203: "Luis Gómez",
+    305: "María Torres",
+    409: "Carlos Díaz"
+}
+
+def buscar_empleado(id_busqueda):
+    if id_busqueda in empleados:
+        return f"Empleado encontrado: {empleados[id_busqueda]}"
+    else:
+        return "Empleado no encontrado."
+
+print(buscar_empleado(203))  
+print(buscar_empleado(999))  
