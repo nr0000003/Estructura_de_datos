@@ -1,0 +1,25 @@
+TAMANIO_TABLA = 10
+tabla_hash = [[] for _ in range(TAMANIO_TABLA)]
+
+def funcion_hash(clave):
+    return clave % TAMANIO_TABLA
+
+def insertar(clave, valor):
+    indice = funcion_hash(clave)
+    tabla_hash[indice].append((clave, valor))
+
+def buscar(clave):
+    indice = funcion_hash(clave)
+    for k, v in tabla_hash[indice]:
+        if k == clave:
+            return f"Encontrado: {v}"
+    return "No encontrado"
+
+
+insertar(15, "Producto A")
+insertar(25, "Producto B")  
+insertar(5, "Producto C")
+
+print(buscar(25))  
+print(buscar(5))   
+print(buscar(99))  
